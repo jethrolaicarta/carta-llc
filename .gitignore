@@ -1,0 +1,20 @@
+# maven
+target/
+
+# intellij
+/.idea
+
+# eclipse
+.project
+.classpath
+.settings
+.tomcat
+
+# logging
+application.log*
+logs
+
+# Dev environment files
+.DS_Store
+*.swp
+*.iml
