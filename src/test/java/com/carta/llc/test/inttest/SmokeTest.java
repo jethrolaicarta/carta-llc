@@ -1,9 +1,9 @@
-package com.carta.springboot.test.inttest;
+package com.carta.llc.test.inttest;
 
 import org.junit.experimental.categories.Category;
 
-import com.carta.springboot.test.IntegrationTest;
-import com.carta.springboot.test.RemoteTest;
+import com.carta.llc.test.IntegrationTest;
+import com.carta.llc.test.RemoteTest;
 
 /**
  * This integration serves as an integration smoke test that can run against any

@@ -1,5 +1,5 @@
-# Carta Base SpringBoot REST Service
-Carta's SpringBoot-based REST API template
+# LLCWebService
+This is an experimental project for prototyping. This is NOT the official LLC project
 
 # Service API Specification
 For usage and API Specifications, See [Rest API Specificiation](docs/REST_API_SPEC.md) or simply [start a local service instance](#run-locally) and visit [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
@@ -21,7 +21,7 @@ mvn spring-boot:run
 ```
 **Option 2:** Standalone Java Application
 ```
-mvn clean package; java -jar target/carta-springboot-0.1.0-SNAPSHOT.jar
+mvn clean package; java -jar target/carta-llc-0.1.0-SNAPSHOT.jar
 ```
 
 **_<span style="color:pink"><a name="pro-tip-1">Pro Tip 1</a><br/></span>_**
@@ -33,9 +33,9 @@ There are two steps: build a docker image and then run a docker container
 ```shell
 mvn clean package dockerfile:build
 # this is equivalent to:
-# mvn clean package; docker build -t carta/carta-springboot .
+# mvn clean package; docker build -t carta/carta-llc .
 
-docker run --name carta-springboot --rm -p 8080:8080 carta/carta-springboot
+docker run --name carta-llc --rm -p 8080:8080 carta/carta-llc
 ```
 
 ### Verify Local Instance
@@ -71,7 +71,7 @@ open target/jacoco-ut/index.html
 # Development and Debugging Features
 ### Manage Logging Level
 You can simple send a HTTP POST request to _/manage/loggers/{logger name}_ with a simple json body.
-The input logger name can also be a java package name. e.g. _com.carta_. Full list of loggers are available at _[/manage/loggers](localhost:8080/manage/loggers)_.
+The input logger name can also be a java package name. e.g. _com.carta.llc_. Full list of loggers are available at _[/manage/loggers](localhost:8080/manage/loggers)_.
 json Body to post:
 ```json
 {
@@ -81,25 +81,25 @@ json Body to post:
 This is achieved via SpringBoot actuator. (See **_[Pro Tip 2](#pro-tip-2)_**)
 #### Example:
 When an instance is started, the level all application loggers is set to **INFO** by default.
-Visit _[/manage/loggers](localhost:8080/manage/loggers)_ or run `curl localhost:8080/manage/loggers`, you should see the logger _com.carta_ is set to level **INFO**.
+Visit _[/manage/loggers](localhost:8080/manage/loggers)_ or run `curl localhost:8080/manage/loggers`, you should see the logger _com.carta.llc_ is set to level **INFO**.
 Now, run
 ```shell
 curl -X "POST" "localhost:8080/manage/loggers/com.carta" -H "Content-Type: application/json; charset=utf-8" -d '{"configuredLevel":"DEBUG"}'
 ```
-visit _[/manage/loggers](localhost:8080/manage/loggers)_ on browswer or run `curl localhost:8080/manage/loggers` again, and you will see the logger _com.carta_ is now set to level **DEBUG**.
+visit _[/manage/loggers](localhost:8080/manage/loggers)_ on browswer or run `curl localhost:8080/manage/loggers` again, and you will see the logger _com.carta.llc_ is now set to level **DEBUG**.
 
 **_<span style="color:pink"><a name="pro-tip-2">Pro Tip 2</a><br/></span>_**
 Logger management is done via SpringBoot Actuator. Logger management is merely one of many production ready feature that actuator offers. All actuator endpoints are enabled with _"/manage"_ prefix e.g. aforementioned _[/manage/loggers](localhost:8080/manage/loggers)_. [Learn more about SpringBoot actuator endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html).
 
 ### Eclipse Integration
-You can also debug using Eclipse. Simply run debug the service as a standard java application with com.carta.springboot.Application as main class. Eclipse STS plugin is highly recommended.
+You can also debug using Eclipse. Simply run debug the service as a standard java application with com.carta.llc.Application as main class. Eclipse STS plugin is highly recommended.
 
 ### Open a port for remote debugging
 You can uncomment the jvm arguments in spring-boot-maven-plugin of pom.xml to open debugging port
 
 Alternatively,
 ```shell
-java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar target/carta-springboot-0.1.0-SNAPSHOT.jar
+java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar target/carta-llc-0.1.0-SNAPSHOT.jar
 ```
 
 ## H2 In-memory Database and Seed Data

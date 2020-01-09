@@ -11,6 +11,6 @@ COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 # TODO: Come up with consistent process for how we do ENTRYPOINT
 
-ENTRYPOINT exec java $JAVA_OPTS -cp app:app/lib/* com.carta.springboot.Application
+ENTRYPOINT exec java $JAVA_OPTS -cp app:app/lib/* com.carta.llc.Application
 
 EXPOSE 8080

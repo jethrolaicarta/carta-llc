@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0-SNAPSHOT]
 ### Added
-- initial features and configurations including /api/health endpoint
+- initial features and configurations including /health endpoint
 
 [Unreleased]: TBD
 [0.1.0]: TBD
