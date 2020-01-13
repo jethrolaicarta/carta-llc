@@ -42,36 +42,36 @@ public class Application {
 	@Autowired
 	private ConfigurableEnvironment env;
 
-	@Value("${llc.db.useInMemoryDb:true}")
-	private Boolean useInMemoryDb;
-
-	@Autowired
-	@Qualifier("jdbcTemplate")
-	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	@Qualifier("entitlementDao")
-	private EntitlementDao entitlementDao;
-
-	@Bean
-	@DependsOn({ "jdbcTemplate" })
-	@Qualifier("entitlementDao")
-	public EntitlementDao setUpEntitlementDao() {
-		EntitlementDao entitlementDao;
-		if (useInMemoryDb) {
-			entitlementDao = new EntitlementDaoH2Impl();
-			((EntitlementDaoH2Impl) entitlementDao).setJdbcTemplate(jdbcTemplate);
-			if (((EntitlementDaoH2Impl) entitlementDao).getJdbcTemplate() == null) {
-				throw new IllegalStateException("jdbcTemplate is not injected successfully.");
-			}
-		} else {
-			entitlementDao = new EntitlementDaoRestImpl();
-
-		}
-		logger.info(String.format("EntityADao (%s) bean has been inialized", entitlementDao.getClass().getName()));
-
-		return entitlementDao;
-	}
+//	@Value("${llc.db.useInMemoryDb:true}")
+//	private Boolean useInMemoryDb;
+//
+//	@Autowired
+//	@Qualifier("jdbcTemplate")
+//	private JdbcTemplate jdbcTemplate;
+//
+//	@Autowired
+//	@Qualifier("entitlementDao")
+//	private EntitlementDao entitlementDao;
+//
+//	@Bean
+//	@DependsOn({ "jdbcTemplate" })
+//	@Qualifier("entitlementDao")
+//	public EntitlementDao setUpEntitlementDao() {
+//		EntitlementDao entitlementDao;
+//		if (useInMemoryDb) {
+//			entitlementDao = new EntitlementDaoH2Impl();
+//			((EntitlementDaoH2Impl) entitlementDao).setJdbcTemplate(jdbcTemplate);
+//			if (((EntitlementDaoH2Impl) entitlementDao).getJdbcTemplate() == null) {
+//				throw new IllegalStateException("jdbcTemplate is not injected successfully.");
+//			}
+//		} else {
+//			entitlementDao = new EntitlementDaoRestImpl();
+//
+//		}
+//		logger.info(String.format("EntityADao (%s) bean has been inialized", entitlementDao.getClass().getName()));
+//
+//		return entitlementDao;
+//	}
 
 //	@PostConstruct
 //	public void insertSeedData() {
@@ -89,7 +89,7 @@ public class Application {
 		@Bean
 		public Docket api() {
 			return new Docket(DocumentationType.SWAGGER_2).select()
-					.apis(RequestHandlerSelectors.basePackage("com.carta.llc.api.controller"))
+					.apis(RequestHandlerSelectors.basePackage("com.carta.llc.core.api.controller"))
 					.paths(PathSelectors.any()).build();
 		}
 	}

@@ -1,4 +1,4 @@
-package com.carta.llc.api.controller;
+package com.carta.llc.core.api.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,14 +24,14 @@ import com.google.gson.JsonObject;
 /**
  * @author jlai
  */
-@RestController
-@RequestMapping("/api/entitlement")
+//@RestController
+//@RequestMapping("/api/entitlement")
 public class EntitlementController {
 	private static final Logger logger = LoggerFactory.getLogger(EntitlementController.class);
 	private static final String ENTITLEMENT_NAME = "ENTITLEMENT";
 
-	@Autowired
-	@Qualifier("entitlementDao")
+//	@Autowired
+//	@Qualifier("entitlementDao")
 	private EntitlementDao entitlementDao;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
