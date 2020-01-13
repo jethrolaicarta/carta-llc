@@ -8,10 +8,10 @@ import com.carta.llc.data.model.EntityA;
 /**
  * @author jlai
  */
-public interface EntityADao {
-	List<EntityA> getAll();
+public interface LlcBaseDao {
+	List<? extends LLCData> getAll();
 
-	EntityA findByUuid(final String uuid);
+	LLCData findById(final String id);
 
 	void upsert(String uuid, String status, Date createdDate, String detail);
 
