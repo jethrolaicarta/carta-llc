@@ -1,27 +1,13 @@
 package com.carta.llc.core.data.model;
 
-import java.util.List;
+public enum EntitlementType {
 
-import lombok.Builder;
-import lombok.Data;
+	MIU("Membership Unit"), PIU("Profit Unit");
 
-@Data
-@Builder
-public class EntitlementType {
+	private final String description;
 
-	private String id;
-	private String typeId;
-	private String holderId;
-	private Double quantityValue;
-	private String quantityUnit;
-	private String status;
-	private String terminationNote;
-	private String originEntitlementId;
-	private String vestingPolicyId;
-	private String vestingScheduleId;
-	private Double cost;
-	private String approvalStatusId;
-	private String complianceId;
-	private List<String> actionIds;
+	private EntitlementType(final String description) {
+		this.description = description;
+	}
 
 }

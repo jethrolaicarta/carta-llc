@@ -1,6 +1,4 @@
-package com.carta.llc;
-
-import java.util.Date;
+package com.carta.llc.core;
 
 import javax.annotation.PostConstruct;
 
@@ -17,10 +15,10 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.carta.llc.data.dao.EntityADao;
-import com.carta.llc.data.dao.EntityADaoH2Impl;
-import com.carta.llc.data.dao.EntityADaoRestImpl;
-import com.carta.llc.data.model.EntityAStatus;
+import com.carta.llc.core.data.dao.EntitlementDao;
+import com.carta.llc.core.data.dao.EntitlementDaoH2Impl;
+import com.carta.llc.core.data.dao.EntitlementDaoRestImpl;
+import com.carta.llc.core.data.model.Entitlement;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -52,38 +50,38 @@ public class Application {
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	@Qualifier("entityADao")
-	private EntityADao entityADao;
+	@Qualifier("entitlementDao")
+	private EntitlementDao entitlementDao;
 
 	@Bean
 	@DependsOn({ "jdbcTemplate" })
-	@Qualifier("entityADao")
-	public EntityADao setUpEntityADao() {
-		EntityADao entityADao;
+	@Qualifier("entitlementDao")
+	public EntitlementDao setUpEntitlementDao() {
+		EntitlementDao entitlementDao;
 		if (useInMemoryDb) {
-			entityADao = new EntityADaoH2Impl();
-			((EntityADaoH2Impl) entityADao).setJdbcTemplate(jdbcTemplate);
-			if (((EntityADaoH2Impl) entityADao).getJdbcTemplate() == null) {
+			entitlementDao = new EntitlementDaoH2Impl();
+			((EntitlementDaoH2Impl) entitlementDao).setJdbcTemplate(jdbcTemplate);
+			if (((EntitlementDaoH2Impl) entitlementDao).getJdbcTemplate() == null) {
 				throw new IllegalStateException("jdbcTemplate is not injected successfully.");
 			}
 		} else {
-			entityADao = new EntityADaoRestImpl();
+			entitlementDao = new EntitlementDaoRestImpl();
 
 		}
-		logger.info(String.format("EntityADao (%s) bean has been inialized", entityADao.getClass().getName()));
+		logger.info(String.format("EntityADao (%s) bean has been inialized", entitlementDao.getClass().getName()));
 
-		return entityADao;
+		return entitlementDao;
 	}
 
-	@PostConstruct
-	public void insertEntityASeedData() {
-		// insert seed data for health check
-		entityADao.upsert(Constants.SEED_ENTITYA_UUID, EntityAStatus.NOT_VERIFIED.name(), new Date(), "no detail");
-
-		logger.info(String.format("Upserted seed EntityA data with uuid (%s) for database health check",
-				Constants.SEED_ENTITYA_UUID));
-
-	}
+//	@PostConstruct
+//	public void insertSeedData() {
+//		// insert seed data for health check
+//		Entitlement entitlement = Entitlement.builder().id(Constants.SEED_ENTITLEMENT_ID).build();
+//		entitlementDao.create(entitlement);
+//
+//		logger.info(String.format("Upserted seed Entitlement data with id (%s) for database health check",
+//				Constants.SEED_ENTITLEMENT_ID));
+//	}
 
 	@Configuration
 	@EnableSwagger2

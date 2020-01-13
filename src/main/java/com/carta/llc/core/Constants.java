@@ -1,4 +1,4 @@
-package com.carta.llc;
+package com.carta.llc.core;
 
 /**
  * Global constants
@@ -10,5 +10,5 @@ public class Constants {
 	}
 
 	public static String CONTROLLER_PACKAGE_PATH = "com.carta.llc.api.controller";
-	public static final String SEED_ENTITYA_UUID = "seed-entitya-uuid";
+	public static final String SEED_ENTITLEMENT_ID = "seed-entitya-uuid";
 }

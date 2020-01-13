@@ -1,8 +1,5 @@
 package com.carta.llc.api.controller;
 
-import java.util.Date;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.carta.llc.api.validator.EntityARequestValidator;
-import com.carta.llc.data.dao.EntityADao;
-import com.carta.llc.data.model.EntityA;
+import com.carta.llc.core.api.validator.EntitlementRequestValidator;
+import com.carta.llc.core.data.dao.EntitlementDao;
+import com.carta.llc.core.data.model.Entitlement;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -28,65 +25,46 @@ import com.google.gson.JsonObject;
  * @author jlai
  */
 @RestController
-@RequestMapping("/entity/a")
-public class EntityAController {
-	private static final Logger logger = LoggerFactory.getLogger(EntityAController.class);
+@RequestMapping("/api/entitlement")
+public class EntitlementController {
+	private static final Logger logger = LoggerFactory.getLogger(EntitlementController.class);
+	private static final String ENTITLEMENT_NAME = "ENTITLEMENT";
 
 	@Autowired
-	@Qualifier("entityADao")
-	private EntityADao entityADao;
+	@Qualifier("entitlementDao")
+	private EntitlementDao entitlementDao;
 
-	@RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
-	public ResponseEntity<String> get(@PathVariable("uuid") String uuid)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<String> get(@PathVariable("id") String id)
 
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-		EntityA entity = entityADao.findByUuid(uuid);
+		Entitlement entity = entitlementDao.get(id);
 
 		if (entity != null) {
 			return new ResponseEntity<>(new Gson().toJson(entity), headers, HttpStatus.OK);
 		}
-		return new ResponseEntity<>(String.format("{\"error\":\"entityA with uuid %s not found\"}", uuid), headers,
-				HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(String.format("{\"error\":\"%s with id %s not found\"}", ENTITLEMENT_NAME, id),
+				headers, HttpStatus.NOT_FOUND);
 
 	}
 
 	// delegate the empty body validation in app by setting the body required=false
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<String> postEntityA(@RequestBody(required = false) String requestBody)
+	public ResponseEntity<String> post(@RequestBody(required = false) String requestBody)
 
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-		EntityA parsedRequest = EntityARequestValidator.validateAndParsePostRequest(requestBody);
+		Entitlement parsedRequest = EntitlementRequestValidator.validateAndParsePostRequest(requestBody);
 
-		EntityA entityA = entityADao.findByUuid(parsedRequest.getUuid());
+		Entitlement entitlement = entitlementDao.get(parsedRequest.getId());
 
-		if (entityA != null) {
-			entityA.setStatus(parsedRequest.getStatus());
-			entityADao.upsert(entityA);
-			entityA = entityADao.findByUuid(parsedRequest.getUuid());
-			return new ResponseEntity<>(new Gson().toJson(entityA), headers, HttpStatus.OK);
-		}
-
-		// entityA not exist
-		entityADao.upsert(parsedRequest.getUuid(), parsedRequest.getStatus(), new Date(), new JsonObject().toString());
-		entityA = entityADao.findByUuid(parsedRequest.getUuid());
-		return new ResponseEntity<>(new Gson().toJson(entityA), headers, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<String> getAll()
-
-	{
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
-
-		List<EntityA> entityAs = entityADao.getAll();
-		return new ResponseEntity<>(new Gson().toJson(entityAs), headers, HttpStatus.OK);
+		// TODO
+		return new ResponseEntity<>(new Gson().toJson(entitlement), headers, HttpStatus.OK);
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
