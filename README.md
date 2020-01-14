@@ -54,6 +54,9 @@ If you see something like:
 
 Congratulation! You just got the base springboot service running locally.
 
+# LLC Abstraction Pattern
+Before you start coding, you should go through _[LLC Abstration and Convention](/docs/LLC_ABSTRACTION.md)_ first. 
+
 # Test and Coverage Report
 
 ### Unit Tests

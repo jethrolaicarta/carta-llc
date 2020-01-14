@@ -1,6 +1,11 @@
 package com.carta.llc.core.data.model;
 
-public enum EntitlementType {
+import java.io.Serializable;
+
+import lombok.Getter;
+
+@Getter
+public enum EntitlementType implements Serializable{
 
 	MIU("Membership Unit"), PIU("Profit Unit");
 

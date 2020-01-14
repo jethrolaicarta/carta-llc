@@ -12,7 +12,7 @@ The primary functionalities of this API includes:
 ### Request
 
 #### Health Check
-- Method: **ALL**
+- Method: **GET**
 - URI: _/health_, _/_
 - Headers:
   - _content-type: application/json;charset=UTF-8_
