@@ -87,15 +87,15 @@ public class Application {
 		return entitlementDao;
 	}
 
-	@PostConstruct
-	public void insertSeedData() {
-		// insert seed data for health check
-		Entitlement entitlement = Entitlement.builder().id(Constants.SEED_ENTITLEMENT_ID).build();
-		entitlementDao.create(entitlement);
-
-		logger.info(String.format("Upserted seed Entitlement data with id (%s) for database health check",
-				Constants.SEED_ENTITLEMENT_ID));
-	}
+//	@PostConstruct
+//	public void insertSeedData() {
+//		// insert seed data for health check
+//		Entitlement entitlement = Entitlement.builder().id(Constants.SEED_ENTITLEMENT_ID).build();
+//		entitlementDao.create(entitlement);
+//
+//		logger.info(String.format("Upserted seed Entitlement data with id (%s) for database health check",
+//				Constants.SEED_ENTITLEMENT_ID));
+//	}
 
 	@Configuration
 	@EnableSwagger2
