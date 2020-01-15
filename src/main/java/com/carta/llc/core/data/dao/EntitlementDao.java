@@ -12,5 +12,5 @@ public interface EntitlementDao<Enttilement> {
 	
 	void delete(final String id);
 	
-	Entitlement upcert(final Entitlement entity);
+	Entitlement upsert(final Entitlement entity);
 }

@@ -16,23 +16,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carta.llc.core.api.validator.EntitlementRequestValidator;
-import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.model.Entitlement;
+import com.carta.llc.core.service.EntitlementService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 /**
  * @author jlai
  */
-//@RestController
-//@RequestMapping("/api/entitlement")
+@RestController
+@RequestMapping("/api/entitlement")
 public class EntitlementController {
 	private static final Logger logger = LoggerFactory.getLogger(EntitlementController.class);
 	private static final String ENTITLEMENT_NAME = "ENTITLEMENT";
 
-//	@Autowired
-//	@Qualifier("entitlementDao")
-	private EntitlementDao entitlementDao;
+	@Autowired
+	@Qualifier("entitlementService")
+	private EntitlementService entitlementService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<String> get(@PathVariable("id") String id)
@@ -41,7 +41,9 @@ public class EntitlementController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-		Entitlement entity = entitlementDao.get(id);
+		//validation
+		
+		Entitlement entity = entitlementService.get(id);
 
 		if (entity != null) {
 			return new ResponseEntity<>(new Gson().toJson(entity), headers, HttpStatus.OK);
@@ -51,7 +53,6 @@ public class EntitlementController {
 
 	}
 
-	// delegate the empty body validation in app by setting the body required=false
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<String> post(@RequestBody(required = false) String requestBody)
 
@@ -61,9 +62,8 @@ public class EntitlementController {
 
 		Entitlement parsedRequest = EntitlementRequestValidator.validateAndParsePostRequest(requestBody);
 
-		Entitlement entitlement = entitlementDao.get(parsedRequest.getId());
+		Entitlement entitlement = entitlementService.create(parsedRequest);
 
-		// TODO
 		return new ResponseEntity<>(new Gson().toJson(entitlement), headers, HttpStatus.OK);
 	}
 

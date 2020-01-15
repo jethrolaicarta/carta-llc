@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class HealthCheckResponse implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6277792461505341780L;
 

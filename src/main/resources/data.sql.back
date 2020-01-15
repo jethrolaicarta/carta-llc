@@ -1,4 +1,4 @@
-INSERT INTO entitlement (id, type, created_date, detail, updated_date) VALUES
-  ('1', 'MIU', parsedatetime('2019-03-01 18:47:52', 'yyyy-MM-dd hh:mm:ss'), '', parsedatetime('2019-03-01 18:47:52', 'yyyy-MM-dd hh:mm:ss')),
-  ('2', 'PIU', parsedatetime('2019-03-02 18:47:52', 'yyyy-MM-dd hh:mm:ss'), '', parsedatetime('2019-03-02 18:47:52', 'yyyy-MM-dd hh:mm:ss'));
+INSERT INTO entitlement (id, type, created, updated) VALUES
+  ('1', 'MIU', parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'), parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss')),
+  ('2', 'PIU', parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'), parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'));
   

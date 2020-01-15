@@ -1,7 +1,0 @@
-CREATE TABLE entitlement (
-  id						VARCHAR(128) PRIMARY KEY,
-  type						VARCHAR(64) NOT NULL,
-  created_date				TIMESTAMP NOT NULL,
-  detail					CLOB NOT NULL,
-  updated_date              TIMESTAMP NOT NULL
-);

@@ -10,5 +10,5 @@ public class Constants {
 	}
 
 	public static String CONTROLLER_PACKAGE_PATH = "com.carta.llc.api.controller";
-	public static final String SEED_ENTITLEMENT_ID = "seed-entitya-uuid";
+	public static final String SEED_ENTITLEMENT_ID = "seed-entitlement-id";
 }
