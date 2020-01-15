@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.model.Entitlement;
 
+import java.util.List;
+
 /**
  * @author jlai
  */
@@ -38,6 +40,11 @@ public class EntitlementDaoNoSQLImpl implements EntitlementDao<Entitlement> {
 	@Override
 	public Entitlement upsert(Entitlement entity) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Entitlement> getByCompanyId(String companyId) {
 		return null;
 	}
 

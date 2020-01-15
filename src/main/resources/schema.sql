@@ -8,6 +8,14 @@ CREATE TABLE entitlement (
   company_id                VARCHAR(128)
 );
 
+CREATE TABLE entitlement_entity (
+  id						VARCHAR(128) PRIMARY KEY,
+  created					TIMESTAMP NOT NULL,
+  entitlement_holder_id     VARCHAR(128),
+  quantity                  DOUBLE NOT NULL,
+  company_id                VARCHAR(128)
+);
+
 CREATE TABLE user (
   id						VARCHAR(128) PRIMARY KEY,
   created					TIMESTAMP NOT NULL

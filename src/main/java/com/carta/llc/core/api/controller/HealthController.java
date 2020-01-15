@@ -56,7 +56,7 @@ public class HealthController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-		return HealthCheckResponse.create("OK", "" + entitlementDaoORMImpl.count(), new HashMap<>());
+		return HealthCheckResponse.create("OK", "OK", new HashMap<>());
 	}
 
 

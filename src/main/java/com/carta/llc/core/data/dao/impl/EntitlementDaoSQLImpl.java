@@ -61,6 +61,11 @@ public class EntitlementDaoSQLImpl implements EntitlementDao<Entitlement> {
 		return null;
 	}
 
+	@Override
+	public List<Entitlement> getByCompanyId(String companyId) {
+		return null;
+	}
+
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}

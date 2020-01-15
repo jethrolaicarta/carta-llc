@@ -16,6 +16,7 @@ public class Entitlement implements LLCBaseData {
 	private Long deleted;
 	private String type;
 	private String holderId;
+	private String companyId;
 	private Double quantity;
 
 //	private String quantityUnit;

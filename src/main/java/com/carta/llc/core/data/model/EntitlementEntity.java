@@ -22,5 +22,6 @@ public class EntitlementEntity {
 	private Long deleted;
 	private String type;
 	private String holderId;
+	private String companyId;
 	private Double quantity;
 }

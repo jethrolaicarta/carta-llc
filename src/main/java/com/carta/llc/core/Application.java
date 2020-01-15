@@ -77,10 +77,10 @@ public class Application {
 		EntitlementDao entitlementDao;
 		if (useInMemoryDb) {
 			entitlementDao = new EntitlementDaoORMImpl();
-			((EntitlementDaoSQLImpl) entitlementDao).setJdbcTemplate(jdbcTemplate);
-			if (((EntitlementDaoSQLImpl) entitlementDao).getJdbcTemplate() == null) {
-				throw new IllegalStateException("jdbcTemplate is not injected successfully.");
-			}
+//			((EntitlementDaoSQLImpl) entitlementDao).setJdbcTemplate(jdbcTemplate);
+//			if (((EntitlementDaoSQLImpl) entitlementDao).getJdbcTemplate() == null) {
+//				throw new IllegalStateException("jdbcTemplate is not injected successfully.");
+//			}
 		} else {
 			entitlementDao = new EntitlementDaoNoSQLImpl();
 		}
