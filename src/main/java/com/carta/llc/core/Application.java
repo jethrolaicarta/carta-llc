@@ -2,6 +2,7 @@ package com.carta.llc.core;
 
 import javax.annotation.PostConstruct;
 
+import com.carta.llc.core.data.dao.impl.EntitlementDaoORMImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class Application {
 	public EntitlementDao entitlementDao() {
 		EntitlementDao entitlementDao;
 		if (useInMemoryDb) {
-			entitlementDao = new EntitlementDaoSQLImpl();
+			entitlementDao = new EntitlementDaoORMImpl();
 			((EntitlementDaoSQLImpl) entitlementDao).setJdbcTemplate(jdbcTemplate);
 			if (((EntitlementDaoSQLImpl) entitlementDao).getJdbcTemplate() == null) {
 				throw new IllegalStateException("jdbcTemplate is not injected successfully.");

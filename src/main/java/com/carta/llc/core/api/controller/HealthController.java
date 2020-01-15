@@ -2,6 +2,7 @@ package com.carta.llc.core.api.controller;
 
 import java.util.HashMap;
 
+import com.carta.llc.core.data.dao.impl.EntitlementDaoORMImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class HealthController {
 	@Qualifier("entitlementService")
 	private EntitlementService entitlementService;
 
+	@Autowired
+	private EntitlementDaoORMImpl entitlementDaoORMImpl;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<String> healthRoot() {
 		return health();
@@ -43,7 +47,7 @@ public class HealthController {
 	/**
 	 * This example demonstrates how to simplify response creation in a
 	 * http-agnostic way
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/health/object", method = RequestMethod.GET)
@@ -52,14 +56,14 @@ public class HealthController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-		return HealthCheckResponse.create("OK", "OK", new HashMap<>());
+		return HealthCheckResponse.create("OK", "" + entitlementDaoORMImpl.count(), new HashMap<>());
 	}
-	
-	
+
+
 	/**
 	 * This example demonstrates how to create custom response on a low level
 	 * http-aware way.
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/health", method = RequestMethod.GET)
