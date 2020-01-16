@@ -1,4 +1,4 @@
-package com.carta.llc.core.api.controller;
+package com.carta.llc.core.api;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,8 +30,8 @@ import com.google.gson.JsonObject;
  */
 @RestController
 @RequestMapping("/api/entitlement")
-public class EntitlementController {
-	private static final Logger logger = LoggerFactory.getLogger(EntitlementController.class);
+public class EntitlementRESTApi {
+	private static final Logger logger = LoggerFactory.getLogger(EntitlementRESTApi.class);
 	private static final String ENTITLEMENT_NAME = "ENTITLEMENT";
 
 	@Autowired

@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.carta.llc.core.api.grpc;
+
+message EntitlementServiceRequest {
+    string entitlementId = 1;
+}
+
+message EntitlementServiceResponse {
+    string entitlementId = 1;
+}
+
+service EntitlementService {
+    rpc get(EntitlementServiceRequest) returns (EntitlementServiceResponse);
+}

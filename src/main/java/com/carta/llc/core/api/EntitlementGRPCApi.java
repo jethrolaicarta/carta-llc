@@ -1,4 +1,4 @@
-package com.carta.llc.core.api.controller;
+package com.carta.llc.core.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +13,13 @@ import com.carta.llc.core.service.EntitlementService;
  * This class should only be used for custom health check implementation
  *
  */
-public class HealthGRPCController {
-	private static final Logger logger = LoggerFactory.getLogger(HealthGRPCController.class);
+public class EntitlementGRPCApi {
+	private static final Logger logger = LoggerFactory.getLogger(EntitlementGRPCApi.class);
 
 	@Autowired
 	@Qualifier("entitlementService")
 	private EntitlementService entitlementService;
+	
+	
 
 }

@@ -104,7 +104,7 @@ public class Application {
 		@Bean
 		public Docket api() {
 			return new Docket(DocumentationType.SWAGGER_2).select()
-					.apis(RequestHandlerSelectors.basePackage("com.carta.llc.core.api.controller"))
+					.apis(RequestHandlerSelectors.basePackage("com.carta.llc.core.api"))
 					.paths(PathSelectors.any()).build();
 		}
 	}

@@ -1,4 +1,4 @@
-package com.carta.llc.core.api.controller;
+package com.carta.llc.core.api;
 
 import com.carta.llc.core.api.validator.EntitlementRequestValidator;
 import com.carta.llc.core.data.model.Entitlement;
@@ -22,8 +22,8 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/captable")
-public class CapTableController {
-	private static final Logger logger = LoggerFactory.getLogger(CapTableController.class);
+public class CapTableRESTApi {
+	private static final Logger logger = LoggerFactory.getLogger(CapTableRESTApi.class);
 	private static final String ENTITLEMENT_NAME = "ENTITLEMENT";
 
 	@Autowired

@@ -1,4 +1,4 @@
-package com.carta.llc.core.api.controller;
+package com.carta.llc.core.api;
 
 import java.util.HashMap;
 
@@ -29,8 +29,8 @@ import com.google.gson.JsonObject;
  *
  */
 @RestController
-public class HealthController {
-	private static final Logger logger = LoggerFactory.getLogger(HealthController.class);
+public class HealthRESTApi {
+	private static final Logger logger = LoggerFactory.getLogger(HealthRESTApi.class);
 
 	@Autowired
 	@Qualifier("entitlementService")
