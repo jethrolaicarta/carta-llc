@@ -1,7 +1,5 @@
 package com.carta.llc.core;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.dao.impl.EntitlementDaoORMImpl;
 import com.carta.llc.core.data.dao.impl.EntitlementDaoSQLImpl;
-import com.carta.llc.core.data.model.Entitlement;
 import com.carta.llc.core.service.EntitlementService;
 import com.carta.llc.core.service.EntitlementServiceImpl;
 

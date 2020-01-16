@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.HashMap;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,8 @@ import io.grpc.ManagedChannelBuilder;
  */
 @Service
 public class HealthCheckService {
+
+	private static final Logger logger = LoggerFactory.getLogger(HealthCheckService.class);
 
 	@Value("${grpc.port}")
 	private int grpcServicePort;
@@ -115,7 +119,8 @@ public class HealthCheckService {
 				.get(EntitlementServiceRequest.newBuilder().setEntitlementId(Constants.SEED_ENTITLEMENT_ID).build());
 
 		channel.shutdown();
-		return response != null && response.getEntitlementId() == Constants.SEED_ENTITLEMENT_ID;
+		return response != null && StringUtils.isNotBlank(response.getEntitlementId())
+				&& response.getEntitlementId().equals(Constants.SEED_ENTITLEMENT_ID);
 
 	}
 
