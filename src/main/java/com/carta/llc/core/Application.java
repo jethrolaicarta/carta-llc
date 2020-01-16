@@ -1,8 +1,5 @@
 package com.carta.llc.core;
 
-import javax.annotation.PostConstruct;
-
-import com.carta.llc.core.data.dao.impl.EntitlementDaoORMImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +14,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.dao.impl.EntitlementDaoNoSQLImpl;
-import com.carta.llc.core.data.dao.impl.EntitlementDaoSQLImpl;
-import com.carta.llc.core.data.model.Entitlement;
+import com.carta.llc.core.data.dao.impl.EntitlementDaoORMImpl;
 import com.carta.llc.core.service.EntitlementService;
 import com.carta.llc.core.service.EntitlementServiceImpl;
+import com.carta.llc.core.service.HealthCheckService;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -57,6 +54,12 @@ public class Application {
 	public EntitlementService entitlementService() {
 		return new EntitlementServiceImpl();
 	}
+
+//	@Bean
+//	@Qualifier("healthCheckService")
+//	public HealthCheckService healthCheckService() {
+//		return new HealthCheckService();
+//	}
 
 	/**
 	 * Data layers
@@ -104,8 +107,8 @@ public class Application {
 		@Bean
 		public Docket api() {
 			return new Docket(DocumentationType.SWAGGER_2).select()
-					.apis(RequestHandlerSelectors.basePackage("com.carta.llc.core.api"))
-					.paths(PathSelectors.any()).build();
+					.apis(RequestHandlerSelectors.basePackage("com.carta.llc.core.api")).paths(PathSelectors.any())
+					.build();
 		}
 	}
 }

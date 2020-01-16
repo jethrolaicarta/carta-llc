@@ -6,7 +6,9 @@ import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.model.Entitlement;
 
 /**
- * @author jlai
+ * 
+ * @author jethrolai
+ *
  */
 public class EntitlementDaoNoSQLImpl implements EntitlementDao<Entitlement> {
 

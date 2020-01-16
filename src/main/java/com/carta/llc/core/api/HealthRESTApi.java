@@ -1,26 +1,19 @@
 package com.carta.llc.core.api;
 
-import java.util.HashMap;
-
-import com.carta.llc.core.data.dao.impl.EntitlementDaoORMImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.carta.llc.core.Constants;
-import com.carta.llc.core.data.dto.HealthCheckResponse;
-import com.carta.llc.core.data.model.Entitlement;
-import com.carta.llc.core.service.EntitlementService;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.carta.llc.core.data.dto.HealthCheckResult;
+import com.carta.llc.core.service.HealthCheckService;
 
 /**
  * health check endpoint. Any custom health check logic can be added in this
@@ -33,11 +26,7 @@ public class HealthRESTApi {
 	private static final Logger logger = LoggerFactory.getLogger(HealthRESTApi.class);
 
 	@Autowired
-	@Qualifier("entitlementService")
-	private EntitlementService entitlementService;
-
-	@Autowired
-	private EntitlementDaoORMImpl entitlementDaoORMImpl;
+	private HealthCheckService healthCheckService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<String> healthRoot() {
@@ -50,15 +39,10 @@ public class HealthRESTApi {
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/health/object", method = RequestMethod.GET)
-	public HealthCheckResponse healthFromObject() {
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
-
-		return HealthCheckResponse.create("OK", "OK", new HashMap<>());
+	@RequestMapping(value = "/health", method = RequestMethod.GET)
+	public HealthCheckResult healthFromObject() {
+		return healthCheckService.healthCheck();
 	}
-
 
 	/**
 	 * This example demonstrates how to create custom response on a low level
@@ -66,22 +50,27 @@ public class HealthRESTApi {
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/health", method = RequestMethod.GET)
+	@RequestMapping(value = "/health/alternative", method = RequestMethod.GET)
 	public ResponseEntity<String> health() {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
+		return new ResponseEntity<>(healthCheckService.healthCheckReturnJson().toString(), headers, HttpStatus.OK);
 
-		Entitlement seedEntity = entitlementService.get(Constants.SEED_ENTITLEMENT_ID);
+	}
 
-		JsonObject responseBody = new JsonObject();
-		JsonObject statusBody = new JsonObject();
-
-		statusBody.addProperty("server", "OK");
-		statusBody.addProperty("db", seedEntity == null ? "DOWN" : "OK");
-		statusBody.add("dependencies", new JsonArray());
-		responseBody.add("status", statusBody);
-
-		return new ResponseEntity<>(responseBody.toString(), headers, HttpStatus.OK);
+	/**
+	 * handle any unexpected exception
+	 * 
+	 * @param e any unexpected exception
+	 * @return
+	 */
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<String> handleError(RuntimeException e) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
+		logger.error(e.getMessage(), e);
+		return new ResponseEntity<>(String.format("{\"error\":\"%s\"}", e.getMessage()), headers,
+				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
