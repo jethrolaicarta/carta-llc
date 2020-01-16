@@ -1,5 +1,7 @@
 package com.carta.llc.core;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,11 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.carta.llc.core.data.dao.EntitlementDao;
-import com.carta.llc.core.data.dao.impl.EntitlementDaoNoSQLImpl;
 import com.carta.llc.core.data.dao.impl.EntitlementDaoORMImpl;
+import com.carta.llc.core.data.dao.impl.EntitlementDaoSQLImpl;
+import com.carta.llc.core.data.model.Entitlement;
 import com.carta.llc.core.service.EntitlementService;
 import com.carta.llc.core.service.EntitlementServiceImpl;
-import com.carta.llc.core.service.HealthCheckService;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -55,12 +57,6 @@ public class Application {
 		return new EntitlementServiceImpl();
 	}
 
-//	@Bean
-//	@Qualifier("healthCheckService")
-//	public HealthCheckService healthCheckService() {
-//		return new HealthCheckService();
-//	}
-
 	/**
 	 * Data layers
 	 */
@@ -70,8 +66,8 @@ public class Application {
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	@Qualifier("entitlementDao")
-	private EntitlementDao entitlementDao;
+	@Qualifier("entitlementService")
+	private EntitlementService entitlementService;
 
 	@Bean
 	@DependsOn({ "jdbcTemplate" })
@@ -85,7 +81,11 @@ public class Application {
 //				throw new IllegalStateException("jdbcTemplate is not injected successfully.");
 //			}
 		} else {
-			entitlementDao = new EntitlementDaoNoSQLImpl();
+			entitlementDao = new EntitlementDaoSQLImpl();
+			((EntitlementDaoSQLImpl) entitlementDao).setJdbcTemplate(jdbcTemplate);
+			if (((EntitlementDaoSQLImpl) entitlementDao).getJdbcTemplate() == null) {
+				throw new IllegalStateException("jdbcTemplate is not injected successfully.");
+			}
 		}
 		logger.info(String.format("EntitlementDao (%s) bean has been inialized", entitlementDao.getClass().getName()));
 		return entitlementDao;
@@ -95,7 +95,7 @@ public class Application {
 //	public void insertSeedData() {
 //		// insert seed data for health check
 //		Entitlement entitlement = Entitlement.builder().id(Constants.SEED_ENTITLEMENT_ID).build();
-//		entitlementDao.create(entitlement);
+//		entitlementService.create(entitlement);
 //
 //		logger.info(String.format("Upserted seed Entitlement data with id (%s) for database health check",
 //				Constants.SEED_ENTITLEMENT_ID));

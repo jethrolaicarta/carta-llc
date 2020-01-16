@@ -1,14 +1,18 @@
 package com.carta.llc.core.data.dao.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.dao.impl.orm.EntitlementEntityRepository;
 import com.carta.llc.core.data.model.Entitlement;
 import com.carta.llc.core.data.model.EntitlementEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.google.gson.Gson;
 
 /**
  * @author jlai
@@ -16,48 +20,53 @@ import java.util.stream.Collectors;
 
 public class EntitlementDaoORMImpl implements EntitlementDao {
 
-    @Autowired
-    private EntitlementEntityRepository entitlementEntityRepository;
+	private static final Logger logger = LoggerFactory.getLogger(EntitlementDaoORMImpl.class);
 
-    @Override
-    public Entitlement get(String id) {
-        return Entitlement.builder().id(entitlementEntityRepository.findById(id).get().getId()).build();
-    }
+	@Autowired
+	private EntitlementEntityRepository entitlementEntityRepository;
 
-    @Override
-    public Entitlement create(Entitlement entity) {
-        return null;
-    }
+	@Override
+	public Entitlement get(String id) {
 
-    @Override
-    public Entitlement update(Entitlement entity) {
-        return null;
-    }
+		Optional<EntitlementEntity> entity = entitlementEntityRepository.findById(id);
+		return Entitlement.builder().id(entity.get().getId()).build();
+	}
 
-    @Override
-    public void delete(String id) {
+	@Override
+	public Entitlement create(Entitlement entity) {
+		Gson gson = new Gson();
+		EntitlementEntity e = (EntitlementEntity) gson.fromJson(gson.toJson(entity), EntitlementEntity.class);
 
-    }
+		logger.info(new Gson().toJson(e));
 
-    @Override
-    public Entitlement upsert(Entitlement entity) {
-        return null;
-    }
+		EntitlementEntity createdEntity = entitlementEntityRepository.save(e);
 
-    @Override
-    public List<Entitlement> getByCompanyId(String companyId) {
-        List<EntitlementEntity> entities = entitlementEntityRepository.getByCompanyId(companyId);
-        return entities.stream()
-                       .map(EntitlementDaoORMImpl::toEntitlement)
-                       .collect(Collectors.toList());
-    }
+		return (Entitlement) gson.fromJson(gson.toJson(createdEntity), Entitlement.class);
+	}
 
-    private static Entitlement toEntitlement(EntitlementEntity entity) {
-        return Entitlement.builder()
-                          .id(entity.getId())
-                          .companyId(entity.getCompanyId())
-                          .holderId(entity.getHolderId())
-                          .quantity(entity.getQuantity())
-                          .build();
-    }
+	@Override
+	public Entitlement update(Entitlement entity) {
+		return null;
+	}
+
+	@Override
+	public void delete(String id) {
+
+	}
+
+	@Override
+	public Entitlement upsert(Entitlement entity) {
+		return null;
+	}
+
+	@Override
+	public List<Entitlement> getByCompanyId(String companyId) {
+		List<EntitlementEntity> entities = entitlementEntityRepository.getByCompanyId(companyId);
+		return entities.stream().map(EntitlementDaoORMImpl::toEntitlement).collect(Collectors.toList());
+	}
+
+	private static Entitlement toEntitlement(EntitlementEntity entity) {
+		return Entitlement.builder().id(entity.getId()).companyId(entity.getCompanyId()).holderId(entity.getHolderId())
+				.quantity(entity.getQuantity()).build();
+	}
 }

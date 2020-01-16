@@ -18,15 +18,4 @@ public class Entitlement implements LLCBaseData {
 	private String holderId;
 	private String companyId;
 	private Double quantity;
-
-//	private String quantityUnit;
-//	private String status;
-//	private String terminationNote;
-//	private String originEntitlementId;
-//	private String vestingPolicyId;
-//	private String vestingScheduleId;
-//	private Double cost;
-//	private String approvalStatusId;
-//	private String complianceId;
-
 }

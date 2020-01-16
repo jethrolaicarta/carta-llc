@@ -1,4 +1,5 @@
 INSERT INTO entitlement (id, created, updated, deleted, holder_id, quantity, company_id) VALUES
+    ('seed-entitlement-id', parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'),parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'),parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'), '1', 1, '1'),
     ('1', parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'),parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'),parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'), '1', 1, '1'),
     ('2', parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'),parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'),parsedatetime('2020-01-12 18:47:52', 'yyyy-MM-dd hh:mm:ss'), '2', 2, '1')
 	;

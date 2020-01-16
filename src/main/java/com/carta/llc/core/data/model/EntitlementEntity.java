@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name="entitlement")
+@Table(name = "entitlement")
 public class EntitlementEntity {
 
 	@Id
@@ -31,4 +31,12 @@ public class EntitlementEntity {
 	private String holderId;
 	private String companyId;
 	private Double quantity;
+
+	public Entitlement toEntitlement() {
+
+		return Entitlement.builder().id(this.getId())
+				.created(this.getCreated() == null ? null : this.getCreated().getTime()).companyId(this.getCompanyId())
+				.quantity(this.getQuantity()).build();
+
+	}
 }

@@ -120,10 +120,11 @@ public class HealthCheckService {
 	}
 
 	public boolean checkRestService() {
+		ResponseEntity<String> response = restTemplate.getForEntity(URI.create(String
+				.format("http://localhost:%s/api/entitlement/%s", restServicePort, Constants.SEED_ENTITLEMENT_ID)),
+				String.class);
 
-		ResponseEntity<Entitlement> response = restTemplate.getForEntity(URI.create("localhost:" + restServicePort),
-				Entitlement.class);
-		return response.getBody() != null && response.getBody().getId() == Constants.SEED_ENTITLEMENT_ID;
+		return StringUtils.isNotBlank(response.getBody()) && response.getBody().contains(Constants.SEED_ENTITLEMENT_ID);
 
 	}
 

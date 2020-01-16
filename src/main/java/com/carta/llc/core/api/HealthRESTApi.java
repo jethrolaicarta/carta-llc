@@ -29,7 +29,7 @@ public class HealthRESTApi {
 	private HealthCheckService healthCheckService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<String> healthRoot() {
+	public HealthCheckResult healthRoot() {
 		return health();
 	}
 
@@ -40,7 +40,7 @@ public class HealthRESTApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/health", method = RequestMethod.GET)
-	public HealthCheckResult healthFromObject() {
+	public HealthCheckResult health() {
 		return healthCheckService.healthCheck();
 	}
 
@@ -51,7 +51,7 @@ public class HealthRESTApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/health/alternative", method = RequestMethod.GET)
-	public ResponseEntity<String> health() {
+	public ResponseEntity<String> healthAlternative() {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
