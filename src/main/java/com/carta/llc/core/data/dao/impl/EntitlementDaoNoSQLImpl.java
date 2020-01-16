@@ -1,51 +1,48 @@
 package com.carta.llc.core.data.dao.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
 
 import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.model.Entitlement;
-
-import java.util.List;
 
 /**
  * @author jlai
  */
 public class EntitlementDaoNoSQLImpl implements EntitlementDao<Entitlement> {
 
-	private static final String ENTITLEMENT_TABLE_NAME = "entitlement";
-	final private Logger logger = LoggerFactory.getLogger(EntitlementDaoNoSQLImpl.class);
-
 	public Entitlement get(final String id) {
-		return null;
+		throw new UnsupportedOperationException(
+				"NoSQL DAO implementation is only used for demonstrating the concept of Data abstraction. It's not implemented. ");
 	}
 
 	@Override
 	public Entitlement create(Entitlement entity) {
-		return null;
+		throw new UnsupportedOperationException(
+				"NoSQL DAO implementation is only used for demonstrating the concept of Data abstraction. It's not implemented. ");
 	}
 
 	@Override
 	public Entitlement update(Entitlement entity) {
-
-		return null;
+		throw new UnsupportedOperationException(
+				"NoSQL DAO implementation is only used for demonstrating the concept of Data abstraction. It's not implemented. ");
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException(
+				"NoSQL DAO implementation is only used for demonstrating the concept of Data abstraction. It's not implemented. ");
 	}
 
 	@Override
 	public Entitlement upsert(Entitlement entity) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException(
+				"NoSQL DAO implementation is only used for demonstrating the concept of Data abstraction. It's not implemented. ");
 	}
 
 	@Override
 	public List<Entitlement> getByCompanyId(String companyId) {
-		return null;
+		throw new UnsupportedOperationException(
+				"NoSQL DAO implementation is only used for demonstrating the concept of Data abstraction. It's not implemented. ");
 	}
 
 }
