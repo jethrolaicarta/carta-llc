@@ -57,6 +57,7 @@ public class EntitlementDaoORMImpl implements EntitlementDao {
                           .id(entity.getId())
                           .companyId(entity.getCompanyId())
                           .holderId(entity.getHolderId())
+                          .quantity(entity.getQuantity())
                           .build();
     }
 }

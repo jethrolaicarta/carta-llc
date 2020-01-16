@@ -1,5 +1,9 @@
 package com.carta.llc.core.api.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +45,7 @@ public class EntitlementController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-		//validation
-		
+		//validation		
 		Entitlement entity = entitlementService.get(id);
 
 		if (entity != null) {

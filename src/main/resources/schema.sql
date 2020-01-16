@@ -11,7 +11,9 @@ CREATE TABLE entitlement (
 CREATE TABLE entitlement_entity (
   id						VARCHAR(128) PRIMARY KEY,
   created					TIMESTAMP NOT NULL,
-  entitlement_holder_id     VARCHAR(128),
+  updated					TIMESTAMP NOT NULL,
+  deleted					TIMESTAMP NOT NULL,
+  holder_id     VARCHAR(128),
   quantity                  DOUBLE NOT NULL,
   company_id                VARCHAR(128)
 );
