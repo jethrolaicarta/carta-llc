@@ -26,3 +26,8 @@ CREATE TABLE company (
   id						VARCHAR(128) PRIMARY KEY,
   created					TIMESTAMP NOT NULL
 );
+
+CREATE TABLE new_database_table (
+  id						VARCHAR(128) PRIMARY KEY,
+  created					TIMESTAMP NOT NULL
+);
