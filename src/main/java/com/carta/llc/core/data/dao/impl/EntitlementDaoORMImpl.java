@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.carta.llc.core.data.dao.EntitlementDao;
 import com.carta.llc.core.data.dao.impl.orm.EntitlementEntityRepository;
+import com.carta.llc.core.data.entity.EntitlementEntity;
 import com.carta.llc.core.data.model.Entitlement;
-import com.carta.llc.core.data.model.EntitlementEntity;
 import com.google.gson.Gson;
 
 /**

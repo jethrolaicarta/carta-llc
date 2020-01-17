@@ -1,4 +1,4 @@
-package com.carta.llc.core.data.model;
+package com.carta.llc.core.data.entity;
 
 import java.util.Date;
 
@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.carta.llc.core.data.model.Entitlement;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
